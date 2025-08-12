@@ -1,0 +1,20 @@
+name: Our Artifact2
+on: push
+jobs:
+  up:
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "Hello, GitHub Actions!" > hello.txt
+        - uses: actions/upload-artifact@v4
+          with:
+            name: hello
+            path: hello.txt
+  down:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cat hello.txt
+        continue-on-error: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: hello
+      - run: cat hello.txt
